@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="home">
+    <section class="hero">
+        <h1 class="hero__title">{{ section.title }}</h1>
+        <div class="hero__content">
+            {{ section.content | safe }}
+        </div>
+    </section>
+
+    <section class="poems">
+        {% for page in section.pages %}
+        <article class="poem-card">
+            <h2 class="poem-card__title">
+                <a href="{{ page.permalink }}">{{ page.title }}</a>
+            </h2>
+            <time class="poem-card__date">{{ page.date | date(format="%B %d, %Y") }}</time>
+            {% if page.summary %}
+            <div class="poem-card__summary">
+                {{ page.summary | safe }}
+            </div>
+            {% endif %}
+        </article>
+        {% endfor %}
+    </section>
+</div>
+{% endblock %}

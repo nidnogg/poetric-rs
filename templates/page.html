@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} - {{ super() }}{% endblock %}
+
+{% block content %}
+<article class="poem">
+    <header class="poem__header">
+        <h1 class="poem__title">{{ page.title }}</h1>
+        <time class="poem__date">{{ page.date | date(format="%B %d, %Y") }}</time>
+    </header>
+
+    <div class="poem__content">
+        {{ page.content | safe }}
+    </div>
+
+    <nav class="poem__nav">
+        {% if page.earlier %}
+        <a href="{{ page.earlier.permalink }}" class="poem__nav-link poem__nav-link--prev">
+            ← {{ page.earlier.title }}
+        </a>
+        {% endif %}
+        
+        <a href="{{ get_url(path="/") }}" class="poem__nav-link poem__nav-link--home">
+            Home
+        </a>
+
+        {% if page.later %}
+        <a href="{{ page.later.permalink }}" class="poem__nav-link poem__nav-link--next">
+            {{ page.later.title }} →
+        </a>
+        {% endif %}
+    </nav>
+</article>
+{% endblock %}

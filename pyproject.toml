@@ -1,0 +1,44 @@
+[project]
+name = "poetric-rs"
+version = "0.1.0"
+description = "A beautiful poetry blog built with Zola that automatically syncs with your Obsidian vault"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "watchdog>=3.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+    "mypy",
+]
+
+[project.scripts]
+poetric-build = "build:main"
+poetric-sync = "sync_obsidian:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]
+include = [
+    "build.py",
+    "sync_obsidian.py",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py38"
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "I"]
+ignore = []
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
